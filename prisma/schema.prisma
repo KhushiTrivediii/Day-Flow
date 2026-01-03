@@ -97,6 +97,10 @@ model Employee {
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
   
+  @@index([loginId])
+  @@index([email])
+  @@index([department])
+  @@index([joiningDate])
   @@map("employees")
 }
 
@@ -117,6 +121,9 @@ model AttendanceRecord {
   updatedAt     DateTime          @updatedAt
   
   @@unique([employeeId, date])
+  @@index([employeeId, date])
+  @@index([date])
+  @@index([status])
   @@map("attendance_records")
 }
 
@@ -139,6 +146,9 @@ model LeaveRequest {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   
+  @@index([employeeId])
+  @@index([status])
+  @@index([startDate, endDate])
   @@map("leave_requests")
 }
 
@@ -157,5 +167,7 @@ model SalaryComponent {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   
+  @@index([employeeId])
+  @@index([name])
   @@map("salary_components")
 }
