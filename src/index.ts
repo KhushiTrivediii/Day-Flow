@@ -8,6 +8,7 @@ import rateLimit from 'express-rate-limit';
 import { config } from './config/config';
 import { errorHandler } from './middleware/errorHandler';
 import { notFoundHandler } from './middleware/notFoundHandler';
+import employeeRoutes from './routes/employeeRoutes';
 
 // Load environment variables
 dotenv.config();
@@ -47,7 +48,9 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API routes will be added here
+// API routes
+app.use('/api/employees', employeeRoutes);
+
 app.get('/api', (req, res) => {
   res.json({
     message: 'Dayflow Backend API',
