@@ -1,0 +1,192 @@
+/* Theme Toggle Component Styles */
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  user-select: none;
+}
+
+.toggleButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--border-radius-full);
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.toggleButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.toggleButton:hover {
+  transform: scale(1.05);
+}
+
+.toggleButton:active {
+  transform: scale(0.95);
+}
+
+.toggleTrack {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-border);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-normal);
+}
+
+.light .toggleTrack {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border);
+}
+
+.dark .toggleTrack {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.toggleThumb {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+  border-radius: var(--border-radius-full);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  z-index: 1;
+}
+
+.thumbLight {
+  transform: translateX(0);
+}
+
+.thumbDark {
+  transform: translateX(100%);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+  transition: color var(--transition-fast);
+}
+
+.light .icon {
+  color: var(--color-warning);
+}
+
+.dark .icon {
+  color: var(--color-primary);
+}
+
+/* Size variants */
+.sm .toggleTrack {
+  width: 40px;
+  height: 20px;
+  padding: 2px;
+}
+
+.sm .toggleThumb {
+  width: 16px;
+  height: 16px;
+}
+
+.sm .icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.md .toggleTrack {
+  width: 48px;
+  height: 24px;
+  padding: 2px;
+}
+
+.md .toggleThumb {
+  width: 20px;
+  height: 20px;
+}
+
+.md .icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.lg .toggleTrack {
+  width: 56px;
+  height: 28px;
+  padding: 2px;
+}
+
+.lg .toggleThumb {
+  width: 24px;
+  height: 24px;
+}
+
+.lg .icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Hover effects */
+.toggleButton:hover .toggleTrack {
+  box-shadow: var(--shadow-md);
+}
+
+.toggleButton:hover .toggleThumb {
+  box-shadow: var(--shadow-md);
+}
+
+/* Disabled state */
+.toggleButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.toggleButton:disabled:hover {
+  transform: none;
+}
+
+.toggleButton:disabled .toggleTrack,
+.toggleButton:disabled .toggleThumb {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .toggleButton,
+  .toggleTrack,
+  .toggleThumb,
+  .icon {
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .toggleTrack {
+    border-width: 2px;
+  }
+  
+  .toggleButton:focus-visible {
+    outline-width: 3px;
+  }
+}
