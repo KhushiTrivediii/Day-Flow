@@ -1,0 +1,161 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User roles enum
+enum UserRole {
+  EMPLOYEE
+  HR_OFFICER
+  ADMIN
+}
+
+// Attendance status enum
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  HALF_DAY
+  LEAVE
+}
+
+// Leave type enum
+enum LeaveType {
+  PAID
+  SICK
+  UNPAID
+  CASUAL
+  MATERNITY
+  PATERNITY
+}
+
+// Leave status enum
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// Salary component types
+enum ComponentType {
+  BASIC
+  HRA
+  STANDARD_ALLOWANCE
+  PERFORMANCE_BONUS
+  LTA
+  FIXED_ALLOWANCE
+  PF_DEDUCTION
+  PROFESSIONAL_TAX
+}
+
+// Computation types for salary components
+enum ComputationType {
+  FIXED_AMOUNT
+  PERCENTAGE_OF_WAGE
+  PERCENTAGE_OF_BASIC
+}
+
+// Employee model
+model Employee {
+  id                String    @id @default(cuid())
+  loginId           String    @unique
+  email             String    @unique
+  passwordHash      String
+  firstName         String
+  lastName          String
+  role              UserRole  @default(EMPLOYEE)
+  isActive          Boolean   @default(true)
+  profilePicture    String?
+  
+  // Personal Details
+  phone             String?
+  address           String?
+  dateOfBirth       DateTime?
+  emergencyContact  Json?
+  
+  // Job Details
+  department        String
+  position          String
+  joiningDate       DateTime
+  reportingManager  String?
+  workingSchedule   Json
+  
+  // Salary Information
+  monthlyWage       Decimal
+  salaryComponents  SalaryComponent[]
+  
+  // Relationships
+  attendanceRecords AttendanceRecord[]
+  leaveRequests     LeaveRequest[]
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@map("employees")
+}
+
+// Attendance record model
+model AttendanceRecord {
+  id            String            @id @default(cuid())
+  employeeId    String
+  employee      Employee          @relation(fields: [employeeId], references: [id])
+  date          DateTime          @db.Date
+  checkIn       DateTime?
+  checkOut      DateTime?
+  workingHours  Decimal           @default(0)
+  breakTime     Int               @default(0) // minutes
+  status        AttendanceStatus  @default(ABSENT)
+  remarks       String?
+  
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  
+  @@unique([employeeId, date])
+  @@map("attendance_records")
+}
+
+// Leave request model
+model LeaveRequest {
+  id          String      @id @default(cuid())
+  employeeId  String
+  employee    Employee    @relation(fields: [employeeId], references: [id])
+  type        LeaveType
+  startDate   DateTime    @db.Date
+  endDate     DateTime    @db.Date
+  days        Int
+  reason      String
+  status      LeaveStatus @default(PENDING)
+  appliedDate DateTime    @default(now())
+  approvedBy  String?
+  approvedDate DateTime?
+  comments    String?
+  
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  @@map("leave_requests")
+}
+
+// Salary component model
+model SalaryComponent {
+  id              String            @id @default(cuid())
+  employeeId      String
+  employee        Employee          @relation(fields: [employeeId], references: [id])
+  name            ComponentType
+  displayName     String
+  computationType ComputationType
+  value           Decimal           // percentage or fixed amount
+  calculatedAmount Decimal          @default(0)
+  isActive        Boolean           @default(true)
+  
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  
+  @@map("salary_components")
+}
