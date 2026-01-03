@@ -87,25 +87,25 @@ This implementation plan breaks down the Dayflow frontend development into discr
   - Ensure all tests pass, verify theme switching works, confirm API layer functions correctly
   - Ask the user if questions arise about the foundation setup
 
-- [ ] 6. Layout and Navigation Components
-  - [ ] 6.1 Create AppLayout component
+- [x] 6. Layout and Navigation Components
+  - [x] 6.1 Create AppLayout component
     - Build main application wrapper with header and navigation
     - Integrate theme provider and authentication context
     - Add responsive design for mobile and desktop
     - _Requirements: 9.1, 9.7_
 
-  - [ ] 6.2 Implement DashboardLayout
+  - [x] 6.2 Implement DashboardLayout
     - Create dashboard-specific layout with sidebar navigation
     - Add role-based navigation menu items
     - Implement breadcrumb navigation
     - _Requirements: 9.7_
 
-  - [ ] 6.3 Create AuthLayout for login pages
+  - [x] 6.3 Create AuthLayout for login pages
     - Build authentication page layout with branding
     - Add responsive design for login forms
     - _Requirements: 9.1_
 
-  - [ ] 6.4 Write property tests for responsive design
+  - [x] 6.4 Write property tests for responsive design
     - **Property 15: Responsive Design Adaptation**
     - **Validates: Requirements 9.1, 9.2**
 
