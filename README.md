@@ -1,9 +1,31 @@
-# Dayflow Backend
+# Dayflow - HR Management System
 
-A comprehensive HR management API built with Express.js, TypeScript, and Prisma ORM.
+A comprehensive Human Resource Management System (HRMS) with a modern React frontend and robust Node.js backend.
 
-## Features
+## 🏗️ Project Structure
 
+```
+Day-Flow/
+├── frontend/           # React + TypeScript frontend
+├── src/               # Node.js + Express backend
+├── prisma/            # Database schema and migrations
+├── .kiro/             # Project specifications and tasks
+└── docker-compose.yml # Docker configuration
+```
+
+## 🚀 Features
+
+### Frontend (React + TypeScript)
+- 🎨 Modern UI with light/dark theme support
+- 📱 Responsive design for all devices
+- 🔐 Role-based authentication and routing
+- 👥 Employee dashboard and management
+- ⏰ Attendance tracking with real-time status
+- 🏖️ Leave management system
+- 💰 Salary information display
+- 🧪 Comprehensive testing with Vitest and property-based tests
+
+### Backend (Node.js + Express)
 - 🔐 JWT-based authentication and authorization
 - 👥 Employee management with role-based access control
 - ⏰ Attendance tracking with check-in/check-out functionality
@@ -14,8 +36,18 @@ A comprehensive HR management API built with Express.js, TypeScript, and Prisma 
 - 📊 PostgreSQL database with Prisma ORM
 - 🐳 Docker support for easy deployment
 
-## Tech Stack
+## 🛠️ Tech Stack
 
+### Frontend
+- **Framework**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **Routing**: React Router v6
+- **Styling**: CSS Modules with CSS Variables
+- **HTTP Client**: Axios
+- **Testing**: Vitest, React Testing Library, fast-check
+- **Code Quality**: ESLint, Prettier, Husky
+
+### Backend
 - **Runtime**: Node.js with TypeScript
 - **Framework**: Express.js
 - **Database**: PostgreSQL with Prisma ORM
@@ -25,7 +57,7 @@ A comprehensive HR management API built with Express.js, TypeScript, and Prisma 
 - **Testing**: Jest with Supertest
 - **Code Quality**: ESLint, Prettier, Husky
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -33,79 +65,59 @@ A comprehensive HR management API built with Express.js, TypeScript, and Prisma 
 - Docker and Docker Compose
 - Git
 
-### Installation
+### Backend Setup
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd dayflow-backend
-   ```
-
-2. **Install dependencies**
+1. **Install backend dependencies**
    ```bash
    npm install
    ```
 
-3. **Set up environment variables**
+2. **Set up environment variables**
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
 
-4. **Start the database**
+3. **Start the database**
    ```bash
    docker-compose up -d postgres
    ```
 
-5. **Set up the database**
+4. **Set up the database**
    ```bash
    npm run db:generate
    npm run db:push
    ```
 
-6. **Start the development server**
+5. **Start the backend server**
    ```bash
    npm run dev
    ```
 
 The API will be available at `http://localhost:3000`
 
-### Environment Variables
+### Frontend Setup
 
-Copy `.env.example` to `.env` and configure the following variables:
-
-- `DATABASE_URL`: PostgreSQL connection string
-- `JWT_SECRET`: Secret key for JWT token signing
-- `JWT_REFRESH_SECRET`: Secret key for refresh token signing
-- `SMTP_*`: Email configuration for Nodemailer
-- `PORT`: Server port (default: 3000)
-
-### Database Setup
-
-The project uses PostgreSQL with Prisma ORM. To set up the database:
-
-1. Start PostgreSQL using Docker Compose:
+1. **Navigate to frontend directory**
    ```bash
-   docker-compose up -d postgres
+   cd frontend
    ```
 
-2. Generate Prisma client:
+2. **Install frontend dependencies**
    ```bash
-   npm run db:generate
+   npm install
    ```
 
-3. Push the schema to the database:
+3. **Start the frontend development server**
    ```bash
-   npm run db:push
+   npm run dev
    ```
 
-4. (Optional) Open Prisma Studio to view data:
-   ```bash
-   npm run db:studio
-   ```
+The frontend will be available at `http://localhost:5173`
 
-## Available Scripts
+## 📚 Available Scripts
 
+### Backend Scripts
 - `npm run dev` - Start development server with hot reload
 - `npm run build` - Build the project for production
 - `npm start` - Start the production server
@@ -119,7 +131,19 @@ The project uses PostgreSQL with Prisma ORM. To set up the database:
 - `npm run db:migrate` - Run database migrations
 - `npm run db:studio` - Open Prisma Studio
 
-## API Endpoints
+### Frontend Scripts
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run test` - Run tests once
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:ui` - Run tests with UI
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint errors
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting
+
+## 🔗 API Endpoints
 
 ### Health Check
 - `GET /health` - Health check endpoint
@@ -153,32 +177,18 @@ The project uses PostgreSQL with Prisma ORM. To set up the database:
 - `GET /api/salary/structure` - Get salary structure
 - `PUT /api/salary/structure` - Update salary structure
 
-## Project Structure
-
-```
-src/
-├── config/          # Configuration files
-├── controllers/     # Route controllers
-├── middleware/      # Express middleware
-├── services/        # Business logic services
-├── types/          # TypeScript type definitions
-├── utils/          # Utility functions
-├── test/           # Test setup and utilities
-└── index.ts        # Application entry point
-```
-
-## Development Guidelines
+## 🏗️ Development Guidelines
 
 ### Code Quality
 
-The project uses ESLint and Prettier for code quality and formatting. Husky is configured to run these checks on commit.
+Both frontend and backend use ESLint and Prettier for code quality and formatting. Husky is configured to run these checks on commit.
 
-### Testing
+### Testing Strategy
 
-- Write unit tests for business logic
-- Write integration tests for API endpoints
-- Use property-based testing for complex algorithms
-- Maintain good test coverage
+- **Unit Tests**: Component and utility function testing
+- **Integration Tests**: API endpoint testing
+- **Property-Based Tests**: Universal correctness properties
+- **E2E Tests**: Critical user journey testing
 
 ### Git Workflow
 
@@ -187,7 +197,7 @@ The project uses ESLint and Prettier for code quality and formatting. Husky is c
 3. Ensure all tests pass and code is formatted
 4. Create pull requests for review
 
-## Docker Support
+## 🐳 Docker Support
 
 The project includes Docker Compose configuration for:
 
@@ -199,7 +209,16 @@ To start all services:
 docker-compose up -d
 ```
 
-## Contributing
+## 📋 Environment Variables
+
+### Backend (.env)
+- `DATABASE_URL`: PostgreSQL connection string
+- `JWT_SECRET`: Secret key for JWT token signing
+- `JWT_REFRESH_SECRET`: Secret key for refresh token signing
+- `SMTP_*`: Email configuration for Nodemailer
+- `PORT`: Server port (default: 3000)
+
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -208,6 +227,35 @@ docker-compose up -d
 5. Ensure all tests pass
 6. Submit a pull request
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License.
+
+## 🎯 Project Status
+
+This project is currently in active development. The frontend infrastructure is complete and ready for feature implementation. The backend infrastructure is also set up with database schema and basic middleware.
+
+### Completed ✅
+- Frontend project setup with Vite + React + TypeScript
+- Theme system with light/dark mode support
+- CSS Variables and responsive design foundation
+- TypeScript type definitions
+- Testing infrastructure with Vitest and fast-check
+- Backend project setup with Express + TypeScript
+- Database schema with Prisma ORM
+- Authentication middleware and utilities
+- Code quality tools (ESLint, Prettier, Husky)
+
+### In Progress 🚧
+- Authentication system implementation
+- Dashboard components
+- API endpoints development
+- Integration between frontend and backend
+
+### Planned 📋
+- Employee management features
+- Attendance tracking system
+- Leave management workflows
+- Salary calculation system
+- Email notifications
+- Deployment configuration
