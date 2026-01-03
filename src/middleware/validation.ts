@@ -7,7 +7,7 @@ export const validateRequest = (schema: {
   query?: Joi.ObjectSchema;
   params?: Joi.ObjectSchema;
 }) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
+  return (req: Request, _res: Response, next: NextFunction): void => {
     const errors: any[] = [];
 
     // Validate body
@@ -60,15 +60,29 @@ export const validateRequest = (schema: {
   };
 };
 
+/**
+ * Enhanced input sanitization middleware
+ */
 export const sanitizeInput = (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction
 ): void => {
   // Basic input sanitization
   const sanitizeObject = (obj: any): any => {
     if (typeof obj === 'string') {
-      return obj.trim();
+      // Trim whitespace and remove null bytes
+      let sanitized = obj.trim().replace(/\0/g, '');
+
+      // Basic XSS prevention - remove script tags and javascript: protocols
+      sanitized = sanitized.replace(
+        /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+        ''
+      );
+      sanitized = sanitized.replace(/javascript:/gi, '');
+      sanitized = sanitized.replace(/on\w+\s*=/gi, '');
+
+      return sanitized;
     }
     if (Array.isArray(obj)) {
       return obj.map(sanitizeObject);
@@ -77,7 +91,9 @@ export const sanitizeInput = (
       const sanitized: any = {};
       for (const key in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, key)) {
-          sanitized[key] = sanitizeObject(obj[key]);
+          // Sanitize keys as well
+          const sanitizedKey = typeof key === 'string' ? key.trim() : key;
+          sanitized[sanitizedKey] = sanitizeObject(obj[key]);
         }
       }
       return sanitized;
@@ -91,6 +107,62 @@ export const sanitizeInput = (
   if (req.query) {
     req.query = sanitizeObject(req.query);
   }
+  if (req.params) {
+    req.params = sanitizeObject(req.params);
+  }
 
   next();
+};
+
+/**
+ * Validate pagination parameters
+ */
+export const validatePagination = (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+): void => {
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 10;
+
+  // Ensure reasonable limits
+  req.query.page = Math.max(1, page).toString();
+  req.query.limit = Math.min(Math.max(1, limit), 100).toString(); // Max 100 items per page
+
+  next();
+};
+
+/**
+ * Common validation schemas
+ */
+export const commonSchemas = {
+  pagination: Joi.object({
+    page: Joi.number().integer().min(1).default(1),
+    limit: Joi.number().integer().min(1).max(100).default(10),
+    sortBy: Joi.string().optional(),
+    sortOrder: Joi.string().valid('asc', 'desc').default('desc'),
+  }),
+
+  id: Joi.object({
+    id: Joi.string().required(),
+  }),
+
+  loginCredentials: Joi.object({
+    loginId: Joi.string().required().trim(),
+    password: Joi.string().required().min(1),
+  }),
+
+  changePassword: Joi.object({
+    oldPassword: Joi.string().required(),
+    newPassword: Joi.string().required().min(8).max(128),
+  }),
+
+  resetPassword: Joi.object({
+    email: Joi.string().email().required(),
+  }),
+
+  confirmResetPassword: Joi.object({
+    token: Joi.string().required(),
+    newPassword: Joi.string().required().min(8).max(128),
+  }),
 };
