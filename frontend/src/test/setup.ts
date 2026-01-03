@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 
 // Mock IntersectionObserver
-global.IntersectionObserver = class IntersectionObserver {
+(globalThis as any).IntersectionObserver = class IntersectionObserver {
   constructor() {}
   disconnect() {}
   observe() {}
@@ -9,7 +9,7 @@ global.IntersectionObserver = class IntersectionObserver {
 };
 
 // Mock ResizeObserver
-global.ResizeObserver = class ResizeObserver {
+(globalThis as any).ResizeObserver = class ResizeObserver {
   constructor() {}
   disconnect() {}
   observe() {}
@@ -32,29 +32,24 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock localStorage
-const localStorageMock = {
-  getItem: (key: string) => {
-    return localStorageMock[key as keyof typeof localStorageMock] || null;
-  },
-  setItem: (key: string, value: string) => {
-    (localStorageMock as Record<string, string>)[key] = value;
-  },
-  removeItem: (key: string) => {
-    delete (localStorageMock as Record<string, string>)[key];
-  },
-  clear: () => {
-    Object.keys(localStorageMock).forEach(key => {
-      if (
-        key !== 'getItem' &&
-        key !== 'setItem' &&
-        key !== 'removeItem' &&
-        key !== 'clear'
-      ) {
-        delete (localStorageMock as Record<string, string>)[key];
-      }
-    });
-  },
-};
+const localStorageMock = (() => {
+  let store: Record<string, string> = {};
+
+  return {
+    getItem: (key: string) => {
+      return store[key] || null;
+    },
+    setItem: (key: string, value: string) => {
+      store[key] = value;
+    },
+    removeItem: (key: string) => {
+      delete store[key];
+    },
+    clear: () => {
+      store = {};
+    },
+  };
+})();
 
 Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
