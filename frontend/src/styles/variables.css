@@ -6,10 +6,12 @@
   --color-primary-light: #ff8c5a;
   --color-primary-dark: #e55a2b;
   --color-primary-hover: #ff5722;
+  --color-primary-alpha-20: rgba(255, 107, 53, 0.2);
 
   --color-background: #ffffff;
   --color-surface: #f8f9fa;
   --color-surface-hover: #e9ecef;
+  --color-surface-disabled: #f1f3f4;
   --color-border: #dee2e6;
   --color-border-light: #f1f3f4;
 
@@ -17,6 +19,10 @@
   --color-text-secondary: #6c757d;
   --color-text-muted: #adb5bd;
   --color-text-inverse: #ffffff;
+  --color-text-placeholder: #9ca3af;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
 
   --color-success: #28a745;
   --color-success-light: #d4edda;
@@ -24,6 +30,8 @@
   --color-warning-light: #fff3cd;
   --color-error: #dc3545;
   --color-error-light: #f8d7da;
+  --color-error-dark: #721c24;
+  --color-error-alpha-20: rgba(220, 53, 69, 0.2);
   --color-info: #17a2b8;
   --color-info-light: #d1ecf1;
 
@@ -49,6 +57,7 @@
   --font-size-md: 1rem;
   --font-size-lg: 1.125rem;
   --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
   --font-size-xxl: 1.5rem;
   --font-size-xxxl: 2rem;
 

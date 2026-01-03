@@ -1,0 +1,77 @@
+.spinnerContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  border-radius: var(--border-radius-full);
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  animation: spin 1s linear infinite;
+}
+
+.spinnerInner {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius-full);
+}
+
+/* Size variants */
+.sm .spinner {
+  width: 16px;
+  height: 16px;
+  border-width: 1px;
+}
+
+.md .spinner {
+  width: 24px;
+  height: 24px;
+  border-width: 2px;
+}
+
+.lg .spinner {
+  width: 32px;
+  height: 32px;
+  border-width: 3px;
+}
+
+/* Screen reader only text */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Spin animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    border-top-color: var(--color-primary);
+    border-right-color: var(--color-primary);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .spinner {
+    border-color: var(--color-text-secondary);
+    border-top-color: var(--color-primary);
+  }
+}

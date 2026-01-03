@@ -1,0 +1,328 @@
+/* LoginPage Styles */
+
+.loginPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: var(--spacing-md);
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-xl);
+  border: 1px solid var(--color-border);
+}
+
+.loginHeader {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.loginTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+  line-height: var(--line-height-tight);
+}
+
+.loginSubtitle {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.formLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.formInput {
+  width: 100%;
+  padding: var(--spacing-md);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  background: var(--color-background);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-alpha-20);
+}
+
+.formInput:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--color-surface-disabled);
+}
+
+.formInput::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.formInputError {
+  border-color: var(--color-error);
+}
+
+.formInputError:focus {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px var(--color-error-alpha-20);
+}
+
+.formError {
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.authError {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--color-error-light);
+  border: 1px solid var(--color-error);
+  border-radius: var(--border-radius-md);
+  color: var(--color-error-dark);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.errorIcon {
+  flex-shrink: 0;
+  color: var(--color-error);
+}
+
+.submitButton {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-white);
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.loginFooter {
+  margin-top: var(--spacing-xl);
+  text-align: center;
+}
+
+.footerText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+.footerLink {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-fast);
+}
+
+.footerLink:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+.footerLink:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .loginPage {
+    padding: var(--spacing-sm);
+  }
+
+  .loginCard {
+    padding: var(--spacing-lg);
+  }
+
+  .loginTitle {
+    font-size: var(--font-size-xl);
+  }
+
+  .loginSubtitle {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .formInput {
+    border-width: 3px;
+  }
+
+  .submitButton {
+    border: 2px solid var(--color-primary-dark);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .formInput,
+  .submitButton,
+  .footerLink {
+    transition: none;
+  }
+
+  .submitButton:hover:not(:disabled) {
+    transform: none;
+  }
+
+  .submitButton:active:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .loginCard {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .authError {
+  background: rgba(220, 53, 69, 0.1);
+  border-color: rgba(220, 53, 69, 0.3);
+  color: #ff6b6b;
+}
+
+/* Loading state styles */
+.formInput:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--color-surface-disabled);
+  color: var(--color-text-muted);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  background: var(--color-primary);
+}
+
+/* Enhanced error states */
+.formError {
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  line-height: var(--line-height-normal);
+}
+
+.authError {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--color-error-light);
+  border: 1px solid var(--color-error);
+  border-radius: var(--border-radius-md);
+  color: var(--color-error-dark);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+/* Focus management for accessibility */
+.formInput:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.submitButton:focus-visible {
+  outline: 2px solid var(--color-primary-dark);
+  outline-offset: 2px;
+}
+
+/* Animation for error messages */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.formError,
+.authError {
+  animation: slideIn 0.2s ease-out;
+}
+
+/* Prevent animation in reduced motion mode */
+@media (prefers-reduced-motion: reduce) {
+  .formError,
+  .authError {
+    animation: none;
+  }
+}
