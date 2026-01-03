@@ -83,7 +83,7 @@ This implementation plan breaks down the Dayflow frontend development into discr
     - Handle unauthorized access scenarios
     - _Requirements: 1.5_
 
-- [ ] 5. Checkpoint - Core Infrastructure Complete
+- [x] 5. Checkpoint - Core Infrastructure Complete
   - Ensure all tests pass, verify theme switching works, confirm API layer functions correctly
   - Ask the user if questions arise about the foundation setup
 
